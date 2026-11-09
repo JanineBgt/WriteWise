@@ -119,64 +119,106 @@ app.post("/api/analyze", async (req, res) => {
         console.log("Starting Groq AI analysis...");
         console.log("Model:", GROQ_MODEL);
 
+
         const completion = await groq.chat.completions.create({
             model: GROQ_MODEL,
+
             messages: [
                 {
                     role: "system",
-                    content: `You are WriteWise, a friendly and helpful AI writing assistant for students and non-native English speakers.
+                    content: `You are WriteWise, a friendly AI writing assistant for students and non-native English speakers.
 
-Analyze the student's writing carefully.
-
-Check these categories:
+Analyze the student's writing in these categories:
 1. Grammar
 2. Spelling
 3. Vocabulary and word choice
 4. Clarity and sentence structure
 5. Suggestions for improvement
-6. Complete corrected version of the writing
+6. Complete corrected version
 
-Return your answer as a valid JSON object using exactly these fields:
+Return ONE valid JSON object with exactly these fields:
 
 {
-  "grammar": "Detailed but simple grammar feedback",
-  "spelling": "Detailed but simple spelling feedback",
-  "vocabulary": "Detailed but simple vocabulary feedback",
-  "clarity": "Detailed but simple clarity feedback",
+  "grammar": "Grammar feedback",
+  "spelling": "Spelling feedback",
+  "vocabulary": "Vocabulary feedback",
+  "clarity": "Clarity and sentence structure feedback",
   "suggestions": [
     {
-      "original": "Original phrase from the writing",
-      "replacement": "Suggested improved phrase",
-      "explanation": "Simple explanation of the improvement"
+      "original": "Original phrase",
+      "replacement": "Improved phrase",
+      "explanation": "Simple explanation"
     }
   ],
-  "revisedText": "The complete corrected version of the student's writing"
+  "revisedText": "Complete corrected version of the writing"
 }
 
-IMPORTANT:
-- Return valid JSON only.
-- Do not include Markdown code fences.
+RULES:
+- Return valid JSON only. No Markdown or code fences.
 - Include all six required fields.
-- Use strings for grammar, spelling, vocabulary, and clarity.
-- Suggestions must always be an arr y.
-- If no errors are found in a category, say that the writing looks good in that category.
-- Do not invent errors.
+- Grammar, spelling, vocabulary, and clarity must be strings.
+- Suggestions must always be an array.
+- Include only relevant and useful suggestions. Do not invent errors.
 - Preserve the student's original meaning and ideas.
 - Do not unnecessarily change correct sentences.
-- Make explanations supportive and easy for students to understand.
-- The revisedText must contain the complete writing, not just one corrected sentence.
-- The response must be valid JSON.`
+- Keep explanations simple, supportive, and student-friendly.
+- The revisedText must contain the entire corrected document.
+- Do not shorten or summarize the student's writing.
+- If a category has no errors, state that the writing looks good in that category.
+- Make sure all JSON strings are properly escaped.`
                 },
                 {
                     role: "user",
                     content: `Analyze this student writing:\n\n${text}`
                 }
             ],
+
             temperature: 0.2,
-            max_tokens: 4000,
+
+            reasoning_effort: "low",
+            reasoning_format: "hidden",
+            max_completion_tokens: 16000,
+
             response_format: {
-                type: "json_object"
+                type: "json_schema",
+                json_schema: {
+                    name: "writewise_analysis",
+                    strict: true,
+                    schema: {
+                        type: "object",
+                        properties: {
+                            grammar: { type: "string" },
+                            spelling: { type: "string" },
+                            vocabulary: { type: "string" },
+                            clarity: { type: "string" },
+                            suggestions: {
+                                type: "array",
+                                items: {
+                                    type: "object",
+                                    properties: {
+                                        original: { type: "string" },
+                                        replacement: { type: "string" },
+                                        explanation: { type: "string" }
+                                    },
+                                    required: ["original", "replacement", "explanation"],
+                                    additionalProperties: false
+                                }
+                            },
+                            revisedText: { type: "string" }
+                        },
+                        required: [
+                            "grammar",
+                            "spelling",
+                            "vocabulary",
+                            "clarity",
+                            "suggestions",
+                            "revisedText"
+                        ],
+                        additionalProperties: false
+                    }
+                }
             }
+
         });
 
         const output = completion.choices[0]?.message?.content;
@@ -206,8 +248,7 @@ IMPORTANT:
             result.suggestions = [];
         }
 
-        // Keep a combined feedback field for compatibility
-        // with frontend versions that still use "feedback".
+        // Keep a combined feedback field for frontend compatibility.
         result.feedback = [
             `GRAMMAR:\n${result.grammar}`,
             `SPELLING:\n${result.spelling}`,
@@ -220,6 +261,7 @@ IMPORTANT:
         console.log("--------------------------------");
 
         return res.json(result);
+
 
     } catch (error) {
         console.error("GROQ ANALYSIS ERROR:", {
