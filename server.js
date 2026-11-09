@@ -222,7 +222,13 @@ IMPORTANT:
         return res.json(result);
 
     } catch (error) {
-        console.error("GROQ ANALYSIS ERROR:", error.message);
+        console.error("GROQ ANALYSIS ERROR:", {
+            message: error.message,
+            status: error.status,
+            code: error.code,
+            type: error.type,
+            details: error.error
+        });
         console.log("--------------------------------");
 
         const status = Number(error.status || error.statusCode);
@@ -263,10 +269,10 @@ app.use((err, req, res, next) => {
 // START SERVER
 // =====================================
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log("--------------------------------");
     console.log("WRITEWISE GROQ SERVER IS RUNNING");
-    console.log(`Open: http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
     console.log("Groq model:", GROQ_MODEL);
     console.log("--------------------------------");
 });
