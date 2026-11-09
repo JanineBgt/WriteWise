@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Sets character encoding to support different characters -->
+    <meta charset="UTF-8">
+
+    <!-- Makes the website responsive on desktop, tablet, and mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Website title displayed on the browser tab -->
+    <title>WriteWise | AI Writing Assistant</title>
+
+    <!-- Connects the external CSS file for website styling -->
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- Sets the website favicon or browser tab icon -->
+    <link rel="icon" type="image/png" href="/assets/LG.png">
+
+    <!-- Imports Lucide icon library -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+</head>
+
+<body>
+
+    <!-- =========================================
+         MAIN APPLICATION CONTAINER
+         Contains the entire WriteWise interface.
+    ========================================== -->
+    <div class="app-shell">
+
+        <!-- =====================================
+             SIDEBAR SECTION
+             Contains the logo, navigation menu,
+             help card, and AI assistant status.
+        ====================================== -->
+        <aside class="sidebar">
+
+            <!-- Website branding and logo -->
+            <div class="brand">
+                <img src="/assets/LG.png" alt="WriteWise Logo" class="brand-icon">
+
+                <div>
+                    <h2>WriteWise</h2>
+                    <span>AI WRITING ASSISTANT</span>
+                </div>
+            </div>
+
+            <!-- Sidebar navigation label -->
+            <div class="nav-label">WORKSPACE</div>
+
+            <!-- Main navigation menu -->
+            <nav class="navigation">
+
+                <!-- Navigation button for Home -->
+                <button class="nav-item active" data-slide="0">
+                    <span class="nav-icon">⌂</span>
+                    <span>Home</span>
+                    <span class="nav-dot"></span>
+                </button>
+
+                <!-- Navigation button for Writing Workspace -->
+                <button class="nav-item" data-slide="1">
+                    <span class="nav-icon">✎</span>
+                    <span>Writing Workspace</span>
+                    <span class="nav-dot"></span>
+                </button>
+
+                <!-- Navigation button for AI Analysis -->
+                <button class="nav-item" data-slide="2">
+                    <span class="nav-icon">✧</span>
+                    <span>AI Analysis</span>
+                    <span class="nav-dot"></span>
+                </button>
+
+                <!-- Navigation button for Suggestions -->
+                <button class="nav-item" data-slide="3">
+                    <span class="nav-icon">◈</span>
+                    <span>Suggestions</span>
+                    <span class="nav-dot"></span>
+                </button>
+
+                <!-- Navigation button for Revised Writing -->
+                <button class="nav-item" data-slide="4">
+                    <span class="nav-icon">▤</span>
+                    <span>Revised Writing</span>
+                    <span class="nav-dot"></span>
+                </button>
+
+                <!-- Navigation button for About -->
+                <button class="nav-item" data-slide="5">
+                    <span class="nav-icon">
+                        <i data-lucide="circle-help"></i>
+                    </span>
+                    <span>About</span>
+                    <span class="nav-dot"></span>
+                </button>
+
+            </nav>
+
+            <!-- Sidebar bottom section -->
+            <div class="sidebar-bottom">
+
+                <!-- Writing encouragement and help card -->
+                <div class="help-card">
+                    <div class="help-icon">✦</div>
+                    <h3>Write with confidence.</h3>
+                    <p>Improve your writing one step at a time with AI assistance.</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- =====================================
+             MAIN CONTENT AREA
+             Displays the page header and slides.
+        ====================================== -->
+        <main class="main-area">
+
+            <!-- =================================
+                 TOP HEADER SECTION
+                 Displays the current page title
+                 and AI connection status.
+            ================================== -->
+            <header class="topbar">
+
+                <!-- Page heading and description -->
+                <div>
+                    <div class="topbar-label">YOUR PERSONAL WRITING SPACE</div>
+                    <h2 id="pageTitle">Welcome to WriteWise</h2>
+                </div>
+
+                <!-- AI connection indicator -->
+                <div class="topbar-right">
+                    <div class="ai-status">
+                        <span class="status-dot"></span>
+                        AI Connected
+                    </div>
+                </div>
+
+            </header>
+
+            <!-- =================================
+                 SLIDES CONTAINER
+                 Holds all six main sections
+                 of the WriteWise application.
+            ================================== -->
+            <div class="slides-container">
+
+                <!-- =================================
+                     SLIDE 1: HOME / WELCOME PAGE
+                     Introduces WriteWise and its
+                     main features to the users.
+                ================================== -->
+                <section class="slide active" id="slide-0">
+
+                    <!-- Welcome text and introduction -->
+                    <div class="welcome-content">
+
+                        <!-- Welcome label -->
+                        <div class="eyebrow">
+                            <span class="sparkle">✦</span>
+                            YOUR AI-POWERED WRITING COMPANION
+                        </div>
+
+                        <!-- Main welcome heading -->
+                        <h1>Make every word<br> <span class="gradient-text">work better.</span></h1>
+
+                        <!-- Introduction to the WriteWise system -->
+                        <p class="welcome-description">
+                            WriteWise helps students improve their academic writing
+                            through intelligent feedback, helpful explanations, and
+                            personalized writing suggestions.
+                        </p>
+
+                        <!-- Welcome page buttons and trust message -->
+                        <div class="welcome-actions">
+
+                            <!-- Button that navigates to Writing Workspace -->
+                            <button class="primary-button" data-go="1">
+                                Start Writing <span>→</span>
+                            </button>
+
+                            <!-- Short motivational message -->
+                            <div class="trust-note">
+                                <span class="trust-icon">✧</span>
+                                Learn. Improve. Write confidently.
+                            </div>
+
+                        </div>
+
+                        <!-- Displays the three main system features -->
+                        <div class="feature-row">
+
+                            <!-- Smart Writing feature -->
+                            <div class="feature-card">
+                                <div class="feature-symbol purple">✎</div>
+                                <h3>Smart Writing</h3>
+                                <p>Improve your sentences and word choices.</p>
+                            </div>
+
+                            <!-- AI Feedback feature -->
+                            <div class="feature-card">
+                                <div class="feature-symbol blue">✧</div>
+                                <h3>AI Feedback</h3>
+                                <p>Understand your writing mistakes.</p>
+                            </div>
+
+                            <!-- Better Results feature -->
+                            <div class="feature-card">
+                                <div class="feature-symbol green">✓</div>
+                                <h3>Better Results</h3>
+                                <p>Build confidence with every revision.</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Decorative hero section with AI robot -->
+                    <div class="hero-decoration">
+
+                        <!-- Background decorative orbs -->
+                        <div class="orb orb-one"></div>
+                        <div class="orb orb-two"></div>
+                        <div class="orb orb-three"></div>
+
+                        <!-- Floating grammar feedback notification -->
+                        <div class="floating-panel panel-one">
+                            <span class="panel-check">✓</span>
+                            <div>
+                                <strong>Grammar improved</strong>
+                                <small>Your sentences are clearer</small>
+                            </div>
+                        </div>
+
+                        <!-- Floating AI suggestions notification -->
+                        <div class="floating-panel panel-two">
+                            <span class="panel-sparkle">✦</span>
+                            <div>
+                                <strong>AI suggestions</strong>
+                                <small>New ideas for better writing</small>
+                            </div>
+                        </div>
+
+                        <!-- Center AI robot illustration -->
+                        <div class="center-orbit">
+                            <div class="orbit-ring"></div>
+                            <div class="orbit-core">
+                                <img src="/rbt.png" alt="WriteWise AI Robot">
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- =================================
+                     SLIDE 2: WRITING WORKSPACE
+                     Allows users to enter their text
+                     or upload a DOCX document.
+                ================================== -->
+                <section class="slide" id="slide-1">
+
+                    <!-- Workspace heading and step indicator -->
+                    <div class="section-heading">
+                        <div>
+                            <div class="eyebrow">STEP 01 / GET STARTED</div>
+                            <h1>Your writing <span class="gradient-text">workspace.</span></h1>
+                            <p>Enter your text or upload a Word document to begin.</p>
+                        </div>
+                        <div class="step-number">01 <span>/ 05</span></div>
+                    </div>
+
+                    <!-- Workspace layout containing editor and upload area -->
+                    <div class="workspace-grid">
+
+                        <!-- Text editor card -->
+                        <div class="editor-card">
+
+                            <!-- Editor header -->
+                            <div class="card-topline">
+                                <div>
+                                    <span class="live-indicator"></span>
+                                    <strong>Writing Editor</strong>
+                                </div>
+                                <span class="subtle-label">YOUR ORIGINAL DRAFT</span>
+                            </div>
+
+                            <!-- Text area where users type or paste their writing -->
+                            <textarea id="writingInput" placeholder="Start typing or paste your academic writing here...
+
+Write your essay, paragraph, reflection, or assignment. WriteWise will help you improve it."></textarea>
+
+                            <!-- Displays word count and writing support information -->
+                            <div class="editor-footer">
+                                <span id="wordCount">0 words</span>
+                                <span>English writing support</span>
+                            </div>
+
+                        </div>
+
+                        <!-- Document upload section -->
+                        <div class="upload-column">
+
+                            <!-- DOCX upload card -->
+                            <div class="upload-card">
+                                <div class="upload-symbol">↑</div>
+                                <h3>Upload a document</h3>
+                                <p>Choose a Microsoft Word document to extract your writing.</p>
+
+                                <!-- Button that opens the file selector -->
+                                <label class="upload-button" for="docxFile">
+                                    Browse DOCX File
+                                </label>
+
+                                <!-- Accepts Microsoft Word DOCX files -->
+                                <input type="file" id="docxFile" accept=".docx">
+
+                                <!-- Displays document upload status -->
+                                <div id="uploadStatus" class="upload-status">
+                                    Supported format: .DOCX
+                                </div>
+                            </div>
+
+                            <!-- Writing tip card -->
+                            <div class="tip-card">
+                                <div class="tip-icon">✦</div>
+                                <div>
+                                    <strong>Writing tip</strong>
+                                    <p>Start with your own ideas. WriteWise helps you improve them without changing your
+                                        intended meaning.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Workspace navigation and analysis button -->
+                    <div class="slide-actions">
+
+                        <!-- Returns to the Home page -->
+                        <button class="secondary-button" data-go="0">← Back</button>
+
+                        <!-- Starts AI analysis of the submitted writing -->
+                        <button class="primary-button" id="analyzeButton">
+                            Analyze My Writing <span>✧</span>
+                        </button>
+
+                    </div>
+                </section>
+
+                <!-- =================================
+                     SLIDE 3: AI ANALYSIS
+                     Displays AI-generated feedback
+                     about the submitted writing.
+                ================================== -->
+                <section class="slide" id="slide-2">
+
+                    <!-- Analysis heading and step indicator -->
+                    <div class="section-heading">
+                        <div>
+                            <div class="eyebrow">STEP 02 / AI REVIEW</div>
+                            <h1>Your writing <span class="gradient-text">analysis.</span></h1>
+                            <p>Review the feedback generated from your submitted writing.</p>
+                        </div>
+                        <div class="step-number">02 <span>/ 05</span></div>
+                    </div>
+
+                    <!-- Displays the overall AI analysis message -->
+                    <div id="analysisMessage" class="analysis-message">
+                        Your AI feedback will appear here after analysis.
+                    </div>
+
+                    <!-- Contains the four writing analysis categories -->
+                    <div class="analysis-grid">
+
+                        <!-- Grammar feedback card -->
+                        <div class="analysis-card">
+                            <div class="analysis-card-icon purple">Aa</div>
+                            <h3>Grammar</h3>
+                            <p id="grammarFeedback">Waiting for analysis...</p>
+                            <span class="category-label">SENTENCE STRUCTURE</span>
+                        </div>
+
+                        <!-- Spelling feedback card -->
+                        <div class="analysis-card">
+                            <div class="analysis-card-icon blue">✓</div>
+                            <h3>Spelling</h3>
+                            <p id="spellingFeedback">Waiting for analysis...</p>
+                            <span class="category-label">WORD ACCURACY</span>
+                        </div>
+
+                        <!-- Vocabulary feedback card -->
+                        <div class="analysis-card">
+                            <div class="analysis-card-icon orange">✎</div>
+                            <h3>Vocabulary</h3>
+                            <p id="vocabularyFeedback">Waiting for analysis...</p>
+                            <span class="category-label">WORD CHOICE</span>
+                        </div>
+
+                        <!-- Clarity feedback card -->
+                        <div class="analysis-card">
+                            <div class="analysis-card-icon green">◎</div>
+                            <h3>Clarity</h3>
+                            <p id="clarityFeedback">Waiting for analysis...</p>
+                            <span class="category-label">ORGANIZATION</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Analysis page navigation buttons -->
+                    <div class="slide-actions">
+
+                        <!-- Returns to the Writing Workspace -->
+                        <button class="secondary-button" data-go="1">← Back to Writing</button>
+
+                        <!-- Proceeds to Writing Suggestions -->
+                        <button class="primary-button" data-go="3">
+                            View Suggestions <span>→</span>
+                        </button>
+
+                    </div>
+                </section>
+
+                <!-- =================================
+                     SLIDE 4: WRITING SUGGESTIONS
+                     Displays AI recommendations
+                     that users can review and apply.
+                ================================== -->
+                <section class="slide" id="slide-3">
+
+                    <!-- Suggestions heading and step indicator -->
+                    <div class="section-heading">
+                        <div>
+                            <div class="eyebrow">STEP 03 / IMPROVE YOUR DRAFT</div>
+                            <h1>Writing <span class="gradient-text">suggestions.</span></h1>
+                            <p>Review each recommendation and decide which changes to apply.</p>
+                        </div>
+                        <div class="step-number">03 <span>/ 05</span></div>
+                    </div>
+
+                    <!-- Displays the number of suggestions and toolbar information -->
+                    <div class="suggestion-toolbar">
+                        <span id="suggestionCount">0 suggestions found</span>
+                        <span class="subtle-label">YOU ARE IN CONTROL OF YOUR WRITING</span>
+                    </div>
+
+                    <!-- Container where AI-generated suggestions will appear -->
+                    <div id="suggestionsList" class="suggestions-list">
+
+                        <!-- Default message displayed before AI analysis -->
+                        <div class="empty-state">
+                            <div class="empty-icon">✧</div>
+                            <h3>No suggestions yet</h3>
+                            <p>Analyze your writing first to receive AI recommendations.</p>
+                        </div>
+
+                    </div>
+
+                    <!-- Suggestions page navigation buttons -->
+                    <div class="slide-actions">
+
+                        <!-- Returns to AI Analysis -->
+                        <button class="secondary-button" data-go="2">← Back to Analysis</button>
+
+                        <!-- Displays the revised writing -->
+                        <button class="primary-button" id="continueButton">
+                            View Revised Writing <span>→</span>
+                        </button>
+
+                    </div>
+                </section>
+
+                <!-- =================================
+                     SLIDE 5: REVISED WRITING
+                     Displays the improved draft
+                     and allows users to edit or copy it.
+                ================================== -->
+                <section class="slide" id="slide-4">
+
+                    <!-- Revised writing heading and step indicator -->
+                    <div class="section-heading">
+                        <div>
+                            <div class="eyebrow">STEP 04 / YOUR IMPROVED DRAFT</div>
+                            <h1>Revised <span class="gradient-text">writing.</span></h1>
+                            <p>Review your improved version and make your final edits.</p>
+                        </div>
+                        <div class="step-number">04 <span>/ 06</span></div>
+                    </div>
+
+                    <!-- Revised writing editor card -->
+                    <div class="revised-card">
+
+                        <!-- Revised writing header and copy button -->
+                        <div class="revised-header">
+                            <div>
+                                <span class="live-indicator"></span>
+                                <strong>Improved Version</strong>
+                            </div>
+
+                            <!-- Copies the revised text -->
+                            <button class="copy-button" id="copyButton">Copy Text</button>
+                        </div>
+
+                        <!-- Editable text area for the improved writing -->
+                        <textarea id="revisedText"
+                            placeholder="Your revised writing will appear here. You can also edit it manually."></textarea>
+
+                        <!-- Displays revised writing word count -->
+                        <div class="editor-footer">
+                            <span id="revisedWordCount">0 words</span>
+                            <span>Editable final draft</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Reminder about responsible use of AI suggestions -->
+                    <div class="final-tip">
+                        <span>✦</span>
+                        <div>
+                            <strong>Remember</strong>
+                            <p>AI suggestions are guides. Review the final text and make sure it still represents your
+                                own ideas and voice.</p>
+                        </div>
+                    </div>
+
+                    <!-- Revised writing navigation and action buttons -->
+                    <div class="slide-actions">
+
+                        <!-- Returns to Writing Suggestions -->
+                        <button class="secondary-button" data-go="3">← Back to Suggestions</button>
+
+                        <div class="action-group">
+
+                            <!-- Sends the revised writing for another AI analysis -->
+                            <button class="secondary-button" id="reanalyzeButton">Analyze Again</button>
+
+                            <!-- Copies the final revised writing -->
+                            <button class="primary-button" id="copyFinalButton">Copy Final Text ✓</button>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =================================
+                     SLIDE 6: ABOUT WRITEWISE
+                     Provides information about the
+                     system, its purpose, and its team.
+                ================================== -->
+                <section class="slide" id="slide-5">
+
+                    <!-- About page heading and step indicator -->
+                    <div class="section-heading">
+                        <div>
+                            <div class="eyebrow">GET TO KNOW US</div>
+                            <h1>About <span class="gradient-text">WriteWise.</span></h1>
+                            <p>Learn more about your AI-powered writing assistant.</p>
+                        </div>
+                        <div class="step-number">05 <span>/ 06</span></div>
+                    </div>
+
+                    <!-- Container for About page information cards -->
+                    <div class="about-container">
+
+                        <!-- Information card: Introduction to WriteWise -->
+                        <div class="about-card">
+                            <div class="about-icon">
+                                <i data-lucide="sparkles"></i>
+                            </div>
+                            <h2>What is WriteWise?</h2>
+                            <p>
+                                WriteWise is an AI-powered writing assistant that helps
+                                students improve their writing through grammar checking,
+                                intelligent analysis, and helpful suggestions.
+                            </p>
+                            <span class="about-tag">AI WRITING ASSISTANT</span>
+                        </div>
+
+                        <!-- Information card: Mission of the system -->
+                        <div class="about-card">
+                            <div class="about-icon">
+                                <i data-lucide="target"></i>
+                            </div>
+                            <h2>Our Mission</h2>
+                            <p>
+                                Our mission is to make writing easier, more effective,
+                                and accessible while helping students develop better
+                                writing skills.
+                            </p>
+                            <span class="about-tag">OUR GOAL</span>
+                        </div>
+
+                        <!-- Information card: Purpose of the system -->
+                        <div class="about-card">
+                            <div class="about-icon">
+                                <i data-lucide="lightbulb"></i>
+                            </div>
+                            <h2>Our Purpose</h2>
+                            <p>
+                                We help users identify writing mistakes, understand
+                                corrections, and express their ideas with greater
+                                clarity and confidence.
+                            </p>
+                            <span class="about-tag">LEARN AND IMPROVE</span>
+                        </div>
+
+                        <!-- Information card: Main system features -->
+                        <div class="about-card">
+                            <div class="about-icon">
+                                <i data-lucide="zap"></i>
+                            </div>
+                            <h2>Main Features</h2>
+                            <p>
+                                Explore AI Grammar Analysis, Spelling Feedback,
+                                Vocabulary Suggestions, and Revised Writing to
+                                improve your drafts.
+                            </p>
+                            <span class="about-tag">SMART FEATURES</span>
+                        </div>
+
+                        <!-- =================================
+                             MEET OUR TEAM SECTION
+                             Displays the names and roles
+                             of the WriteWise developers.
+                        ================================== -->
+                        <div class="team-container">
+
+                            <!-- Team section heading -->
+                            <div class="team-header">
+
+                                <!-- Team icon -->
+                                <div class="about-icon">
+                                    <i data-lucide="users"></i>
+                                </div>
+
+                                <!-- Team introduction -->
+                                <div>
+                                    <h2>Meet Our Team</h2>
+                                    <p>The people behind WriteWise AI Writing Assistant.</p>
+                                </div>
+
+                            </div>
+
+                            <!-- List of WriteWise development team members -->
+                            <div class="team-list">
+
+                                <!-- Team member 1 -->
+                                <div class="team-member">
+                                    <div class="team-avatar">JB</div>
+                                    <div class="team-info">
+                                        <h3>Janine Bugto</h3>
+                                        <span>Development Team</span>
+                                    </div>
+                                    <i data-lucide="user-round"></i>
+                                </div>
+
+                                <!-- Team member 2 -->
+                                <div class="team-member">
+                                    <div class="team-avatar">TC</div>
+                                    <div class="team-info">
+                                        <h3>Trisha Mae Cardenas</h3>
+                                        <span>Development Team</span>
+                                    </div>
+                                    <i data-lucide="user-round"></i>
+                                </div>
+
+                                <!-- Team member 3 -->
+                                <div class="team-member">
+                                    <div class="team-avatar">HA</div>
+                                    <div class="team-info">
+                                        <h3>Henry Anonuevo</h3>
+                                        <span>Development Team</span>
+                                    </div>
+                                    <i data-lucide="user-round"></i>
+                                </div>
+
+                                <!-- Team member 4 -->
+                                <div class="team-member">
+                                    <div class="team-avatar">AC</div>
+                                    <div class="team-info">
+                                        <h3>Arnold Caberte</h3>
+                                        <span>Development Team</span>
+                                    </div>
+                                    <i data-lucide="user-round"></i>
+                                </div>
+
+                                <!-- Team member 5 -->
+                                <div class="team-member">
+                                    <div class="team-avatar">EL</div>
+                                    <div class="team-info">
+                                        <h3>Emman Lustarez</h3>
+                                        <span>Development Team</span>
+                                    </div>
+                                    <i data-lucide="user-round"></i>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- =====================================
+                 FOOTER / BOTTOM BAR
+                 Displays copyright information,
+                 slide progress, and navigation hint.
+            ====================================== -->
+            <footer class="bottom-bar">
+
+                <!-- Copyright notice -->
+                <span>© 2026 WriteWise. Your ideas, improved.</span>
+
+                <!-- Slide progress indicator -->
+                <div class="slide-progress">
+                    <span id="currentSlide">01</span>
+                    <div class="progress-track">
+                        <div id="progressFill"></div>
+                    </div>
+                    <span>06</span>
+                </div>
+
+                <!-- Keyboard navigation instruction -->
+                <span class="keyboard-hint">Use ← → to navigate</span>
+
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- =========================================
+         LOADING OVERLAY
+         Displays a loading animation and message
+         while the system performs an operation.
+    ========================================== -->
+    <div class="loading-overlay" id="loadingOverlay">
+
+        <!-- Loading animation content -->
+        <div class="loader-content">
+
+            <!-- Loading robot icon -->
+            <div class="loader-logo">
+                <i data-lucide="bot"></i>
+            </div>
+
+            <!-- Animated loading spinner -->
+            <div class="loader-spinner"></div>
+
+            <!-- Loading title and description -->
+            <h2 id="loadingTitle">Loading Workspace</h2>
+            <p id="loadingDescription">Preparing your writing environment...</p>
+
+            <!-- Loading progress bar -->
+            <div class="loading-progress">
+                <div></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- =========================================
+         TOAST NOTIFICATION
+         Displays short messages or notifications
+         to the user through JavaScript.
+    ========================================== -->
+    <div id="toast" class="toast"></div>
+
+    <!-- =========================================
+         JAVASCRIPT FILE
+         Connects the website to its interactive
+         features and system functionality.
+    ========================================== -->
+    <script src="/script.js"></script>
+
+    <!-- Initializes and displays Lucide icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>
