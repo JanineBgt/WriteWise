@@ -186,10 +186,47 @@ function showToast(message) {
 // SLIDE NAVIGATION
 // =====================================
 
+
 async function goToSlide(index) {
     if (index < 0 || index >= slides.length) return;
-    if (index === activeSlide) return;
     if (isAnalyzing) return;
+
+    // MOBILE: Use continuous vertical scrolling.
+    if (window.matchMedia("(max-width: 680px)").matches) {
+
+        slides.forEach(slide => slide.classList.remove("active"));
+        navItems.forEach(item => item.classList.remove("active"));
+
+        slides[index].classList.add("active");
+
+        const selectedNav = document.querySelector(
+            `.nav-item[data-slide="${index}"]`
+        );
+
+        if (selectedNav) {
+            selectedNav.classList.add("active");
+        }
+
+        activeSlide = index;
+
+        setText("pageTitle", slideTitles[index]);
+        setText("currentSlide", String(index + 1).padStart(2, "0"));
+
+        if (progressFill) {
+            progressFill.style.width =
+                ((index + 1) / slides.length) * 100 + "%";
+        }
+
+        slides[index].scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+        return;
+    }
+
+    // DESKTOP: Preserve original slide navigation.
+    if (index === activeSlide) return;
 
     const [title, description] = loadingMessages[index];
 
@@ -224,6 +261,7 @@ async function goToSlide(index) {
 
     hideLoading();
 }
+
 
 navItems.forEach(item => {
     item.addEventListener("click", () => {
@@ -470,6 +508,14 @@ async function analyzeWriting() {
         activeSlide = 2;
 
         setText("pageTitle", slideTitles[2]);
+
+        // MOBILE: Automatically scroll to AI Analysis.
+        if (window.matchMedia("(max-width: 680px)").matches) {
+            analysisSlide.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }
         setText("currentSlide", "03");
 
         if (progressFill) {
@@ -750,6 +796,7 @@ getElement("reanalyzeButton").addEventListener("click", async () => {
 // INITIALIZE
 // =====================================
 
+
 function initializeWriteWise() {
     setText("currentSlide", "01");
 
@@ -758,6 +805,9 @@ function initializeWriteWise() {
             (1 / slides.length) * 100 + "%";
     }
 
+    // Hide the logo while the initial loading screen is active.
+    document.body.classList.remove("page-loaded");
+
     showLoading(
         "Welcome to WriteWise",
         "Preparing your writing experience..."
@@ -765,7 +815,153 @@ function initializeWriteWise() {
 
     setTimeout(() => {
         hideLoading();
+
+        // Reveal the logo when the loading screen finishes.
+        document.body.classList.add("page-loaded");
+
     }, 800);
 }
 
 initializeWriteWise();
+/* =========================================
+   WRITEWISE - MOBILE SCROLL REVEAL
+========================================= */
+
+
+
+/* =========================================
+   WRITEWISE - MOBILE SCROLL REVEAL
+   Detects scrolling inside the actual container
+========================================= */
+
+function initializeMobileScrollReveal() {
+
+    const slidesContainer = document.querySelector(".slides-container");
+    const mobileQuery = window.matchMedia("(max-width: 680px)");
+
+    if (!slidesContainer) {
+        console.error("WriteWise: slides-container not found.");
+        return;
+    }
+
+    let observer = null;
+
+    const selectors = [
+        ".welcome-content",
+        ".hero-decoration",
+        ".feature-row",
+        ".feature-card",
+        ".section-heading",
+        ".workspace-grid",
+        ".editor-card",
+        ".upload-card",
+        ".tip-card",
+        ".analysis-message",
+        ".analysis-grid",
+        ".analysis-card",
+        ".suggestion-toolbar",
+        ".suggestions-list",
+        ".suggestion-card",
+        ".revised-card",
+        ".final-tip",
+        ".about-container",
+        ".about-card",
+        ".team-container",
+        ".team-member"
+    ];
+
+    function setupAnimation() {
+
+        if (observer) {
+            observer.disconnect();
+            observer = null;
+        }
+
+        const elements = document.querySelectorAll(
+            selectors.map(selector => ".slide " + selector).join(",")
+        );
+
+        if (!mobileQuery.matches) {
+
+            elements.forEach(element => {
+                element.classList.remove(
+                    "mobile-scroll-reveal",
+                    "scroll-visible"
+                );
+            });
+
+            return;
+        }
+
+        // Determine whether the slides container is scrollable.
+        const containerStyle = window.getComputedStyle(slidesContainer);
+
+        const isContainerScrollable =
+            slidesContainer.scrollHeight > slidesContainer.clientHeight &&
+            /(auto|scroll)/.test(containerStyle.overflowY);
+
+        // Observe the actual scrolling area.
+        const scrollRoot = isContainerScrollable
+            ? slidesContainer
+            : null;
+
+        observer = new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add("scroll-visible");
+
+                    } else {
+
+                        entry.target.classList.remove("scroll-visible");
+
+                    }
+
+                });
+
+            },
+            {
+                root: scrollRoot,
+                threshold: 0.05,
+                rootMargin: "0px 0px -30px 0px"
+            }
+        );
+
+        elements.forEach(element => {
+
+            element.classList.add("mobile-scroll-reveal");
+
+            observer.observe(element);
+
+        });
+
+        console.log(
+            "WriteWise scroll animation ready:",
+            elements.length,
+            "elements"
+        );
+    }
+
+    setupAnimation();
+
+    mobileQuery.addEventListener("change", setupAnimation);
+
+}
+
+if (document.readyState === "loading") {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeMobileScrollReveal
+    );
+
+} else {
+
+    initializeMobileScrollReveal();
+
+}
+
+
