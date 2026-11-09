@@ -3133,3 +3133,18 @@ button:disabled {
         margin: 0 !important;
     }
 }
+/* FIX ABOUT NAVIGATION ICON SIZE */
+
+@media (max-width: 680px) {
+    .nav-item .nav-icon {
+        width: 19px !important;
+        height: 19px !important;
+        font-size: 17px !important;
+        line-height: 1 !important;
+    }
+
+    .nav-item .nav-icon svg {
+        width: 19px !important;
+        height: 19px !important;
+    }
+}
